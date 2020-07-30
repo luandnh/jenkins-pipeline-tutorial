@@ -1,6 +1,19 @@
 pipeline {
     agent any 
     stages {
+        stage('Checkout') {
+            steps {
+                checkout(
+                    [
+                        $class: 'GitSCM', branches: [[name: '**']], 
+                        doGenerateSubmoduleConfigurations: false, 
+                        extensions: [],
+                        submoduleCfg: [], 
+                        userRemoteConfigs: [[credentialsId: 'dcde7e61-5b8a-4253-922d-eedf46dce105', url: 'https://github.com/luandnh/SkypeBot.git']]
+                    ]
+                )
+            }
+        }
         stage('Static Analysis') {
             steps {
                 echo 'Run the static analysis to the code' 
